@@ -5,7 +5,7 @@ import shopifyConfig from '@functions/config/shopify';
 import render from 'koa-ejs';
 import path from 'path';
 import createErrorHandler from '@functions/middleware/errorHandler';
-import firebase from 'firebase-admin';
+import firebase from '@functions/config/firebase';
 import appConfig from '@functions/config/app';
 import shopifyOptionalScopes from '@functions/config/shopifyOptionalScopes';
 

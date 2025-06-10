@@ -3,7 +3,7 @@
 client_id = "582c5d10501a8fedaf68ab259f35111e"
 name = "My first app"
 handle = "my-first-app-1725"
-application_url = "https://peace-insights-gordon-thereby.trycloudflare.com/auth/shopify"
+application_url = "https://dated-rhythm-club-tue.trycloudflare.com/auth/shopify"
 embedded = true
 
 [build]
@@ -12,10 +12,10 @@ dev_store_url = "avadasaas-internnodejs.myshopify.com"
 
 [auth]
 redirect_urls = [
-  "https://peace-insights-gordon-thereby.trycloudflare.com/auth/shopify/callback",
-  "https://peace-insights-gordon-thereby.trycloudflare.com/authSa/shopify/callback",
-  "https://peace-insights-gordon-thereby.trycloudflare.com/auth/shopify/embed/callback",
-  "https://peace-insights-gordon-thereby.trycloudflare.com/auth/shopify/embed/callback/updateScopes",
+  "https://dated-rhythm-club-tue.trycloudflare.com/auth/shopify/callback",
+  "https://dated-rhythm-club-tue.trycloudflare.com/authSa/shopify/callback",
+  "https://dated-rhythm-club-tue.trycloudflare.com/auth/shopify/embed/callback",
+  "https://dated-rhythm-club-tue.trycloudflare.com/auth/shopify/embed/callback/updateScopes",
   "https://localhost:3000/auth/shopify/callback",
   "https://localhost:3000/authSa/shopify/callback",
   "https://localhost:3000/auth/shopify/embed/callback"

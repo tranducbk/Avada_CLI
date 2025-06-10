@@ -1,10 +1,11 @@
 import React from 'react';
-import {Button, Icon, LegacyStack, Link, Text, Thumbnail, TopBar} from '@shopify/polaris';
+import {Button, Icon, LegacyStack, Link, Text, Avatar, TopBar} from '@shopify/polaris';
 import PropTypes from 'prop-types';
 import {BugIcon, MenuIcon, PaymentIcon, XIcon} from '@shopify/polaris-icons';
 import isLocal from '@assets/helpers/isLocal';
 import {docLink} from '@assets/config/menuLink';
 import InfoIcon from '@assets/resources/icons/info.svg';
+import DuckProfile from '@assets/resources/icons/Duck.jpg';
 import NotificationIcon from '@assets/resources/icons/notification.svg';
 import {LOGO_URL, LOGO_WIDTH} from '@assets/config/theme';
 import '@assets/styles/layout/topbar.scss';
@@ -35,8 +36,8 @@ export default function AppTopBar({isNavOpen, toggleOpenNav}) {
             </Button>
             <img alt="Avada App Name" src={LOGO_URL} width={LOGO_WIDTH} />
             <Text variant="headingLg" as="p">
-              <Link url="/" removeUnderline>
-                App Name
+              <Link url="/" removeUnderline={true}>
+                Avada Group
               </Link>
             </Text>
             {isLocal && (
@@ -46,13 +47,9 @@ export default function AppTopBar({isNavOpen, toggleOpenNav}) {
             )}
           </div>
           <div className="Avada-TopBar__Icons">
-            <LegacyStack alignment="center" spacing="extraTight">
-              <Button url={docLink} external variant="plain">
-                <Thumbnail source={InfoIcon} size="small" alt="" />
-              </Button>
-              <Button onClick={() => openNewsSheet()} variant="plain">
-                <Thumbnail source={NotificationIcon} size="small" alt="" />
-              </Button>
+            <LegacyStack alignment="center" spacing="tight">
+              <Avatar source={DuckProfile} size="lg" alt="Avatar" />
+              <Text variant="headingMd" fontWeight="regular">Avada</Text>
             </LegacyStack>
           </div>
           {isShopUpgradable(shop) && (

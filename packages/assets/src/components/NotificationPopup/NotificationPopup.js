@@ -2,12 +2,12 @@ import React from 'react';
 import './NoticationPopup.scss';
 
 const NotificationPopup = ({
-  firstName = 'John Doe',
-  city = 'New York',
-  country = 'United States',
-  productName = 'Puffer Jacket With Hidden Hood',
-  timestamp = 'a day ago',
-  productImage = 'http://paris.mageplaza.com/images/shop/single/big-1.jpg'
+  firstName,
+  city,
+  country,
+  productName,
+  timestamp,
+  productImage
 }) => {
   return (
     <div className="Avava-SP__Wrapper fadeInUp animated">

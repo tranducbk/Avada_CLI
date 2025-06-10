@@ -1,1 +1,1 @@
-$env:GOOGLE_APPLICATION_CREDENTIALS="serviceAccount.development.json"
+$env:GOOGLE_APPLICATION_CREDENTIALS="D:\Avada SaaS\Week_3_AvadaCLI\avada\serviceAccount.development.json"

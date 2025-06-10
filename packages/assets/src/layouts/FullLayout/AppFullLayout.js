@@ -1,5 +1,5 @@
 import React, {useContext, useState} from 'react';
-import {Frame, Layout, Loading, Scrollable, Toast} from '@shopify/polaris';
+import {Frame, Layout, Loading, Scrollable, Toast, Box} from '@shopify/polaris';
 import PropTypes from 'prop-types';
 import {useStore} from '@assets/reducers/storeReducer';
 import {closeToast} from '@assets/actions/storeActions';
@@ -36,23 +36,23 @@ export default function AppFullLayout({children}) {
   ].filter(Boolean);
 
   return (
-    <Frame topBar={<AppTopBar {...{isNavOpen, toggleOpenNav}} />}>
-      <div className="Avada-Frame">
-        {!isFullscreen && (
-          <div className={navigationClass.join(' ')}>
-            <AppNavigation />
-          </div>
-        )}
-        <Scrollable className={contentClass.join(' ')}>
-          {children}
-          <Layout>
-            <Footer />
-          </Layout>
-        </Scrollable>
-      </div>
-      {loading && <Loading />}
-      {toast && <Toast onDismiss={() => closeToast(dispatch)} {...toast} />}
-    </Frame>
+      <Frame topBar={<AppTopBar {...{isNavOpen, toggleOpenNav}} />}>
+        <div className="Avada-Frame">
+          {!isFullscreen && (
+            <div className={navigationClass.join(' ')}>
+              <AppNavigation />
+            </div>
+          )}
+          <Scrollable className={contentClass.join(' ')}>
+            {children}
+            <Layout>
+              <Footer />
+            </Layout>
+          </Scrollable>
+        </div>
+        {loading && <Loading />}
+        {toast && <Toast onDismiss={() => closeToast(dispatch)} {...toast} />}
+      </Frame>
   );
 }
 

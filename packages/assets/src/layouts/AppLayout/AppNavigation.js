@@ -78,7 +78,7 @@ export default function AppNavigation() {
           },
           ...navigationLinks.map(link => ({
             url: link.destination,
-            icon: getMenuIcon(link.destination)(),
+            icon: getMenuIcon(link.destination),
             label: link.label,
             selected: location.pathname === getUrl(link.destination)
           }))

@@ -1,5 +1,5 @@
 (function() {
-  const BASE_URL = 'https://dated-rhythm-club-tue.trycloudflare.com/scripttag';
+  const BASE_URL = 'https://videos-shareware-student-itself.trycloudflare.com/scripttag';
 
   const scriptElement = document.createElement('script');
   scriptElement.type = 'text/javascript';

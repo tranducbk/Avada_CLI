@@ -1,6 +1,6 @@
 import App from 'koa';
 import 'isomorphic-fetch';
-import {contentSecurityPolicy, shopifyAuth} from '@avada/core';
+import {contentSecurityPolicy, shopifyAuth, getShopByShopifyDomain} from '@avada/core';
 import shopifyConfig from '@functions/config/shopify';
 import render from 'koa-ejs';
 import path from 'path';
@@ -8,6 +8,11 @@ import createErrorHandler from '@functions/middleware/errorHandler';
 import firebase from '@functions/config/firebase';
 import appConfig from '@functions/config/app';
 import shopifyOptionalScopes from '@functions/config/shopifyOptionalScopes';
+import {createSettings} from '@functions/repositories/settingsRepository';
+import defaultSettings from '@functions/const/defaultSettings';
+import {initShopify} from '@functions/services/shopifyService';
+import {saveOrderNotifications} from '@functions/repositories/notificationsRepository';
+import {loadGraphQL} from '@functions/helpers/graphql/graphqlHelpers';
 
 if (firebase.apps.length === 0) {
   firebase.initializeApp();
@@ -45,6 +50,28 @@ app.use(
     },
     hostName: appConfig.baseUrl,
     isEmbeddedApp: true,
+    afterInstall: async ctx => {
+      try {
+        const shop = await getShopByShopifyDomain(ctx.state.shopify.shop, ctx.state.shopify.accessToken);
+        await createSettings(shop.id, defaultSettings);
+        const shopify = await initShopify(shop);
+        const ordersQuery = loadGraphQL('/orders.graphql');
+        const ordersGraphql = await shopify.graphql(ordersQuery);
+        await saveOrderNotifications(ordersGraphql, shop.id, shop.shopifyDomain);
+
+        ctx.body = {
+          success: true,
+          message: 'App installed and default settings created successfully',
+          shopId: shop.id
+        };
+      } catch (error) {
+        console.error('Error creating default settings:', error);
+        ctx.body = {
+          success: false,
+          error: error.message
+        };
+      }
+    },
     afterThemePublish: ctx => {
       // Publish assets when theme is published or changed here
       return (ctx.body = {

@@ -9,19 +9,20 @@ import {
   Text,
   ResourceList,
   ResourceItem,
-  Avatar,
+  InlineStack,
   SkeletonBodyText,
   Spinner,
   SkeletonPage,
   SkeletonDisplayText,
   InlineGrid,
   Divider,
-  SkeletonTabs,
+  SkeletonTabs
 } from '@shopify/polaris';
 import useFetchApi from '@assets/hooks/api/useFetchApi';
 import {useState} from 'react';
 import NotificationPopup from '@assets/components/NotificationPopup/NotificationPopup';
-import formatDateTime from '@functions/helpers/datetime/formatDateTime';
+import formatDateLong from '@functions/helpers/datetime/formatDateLong';
+import formatRelativeTime from '@functions/helpers/datetime/formatRelativeTime';
 
 export default function Notifications() {
   const {loading, data: notifications = []} = useFetchApi({
@@ -33,7 +34,7 @@ export default function Notifications() {
 
   if (loading) {
     return (
-      <SkeletonPage>
+      <SkeletonPage fullWidth={true}>
         <BlockStack gap="400">
           <Card padding="0">
             <Box padding="400">
@@ -84,35 +85,40 @@ export default function Notifications() {
             onSelectionChange={setSelectedItems}
             selectable
             renderItem={item => {
-              const {id, firstName, city, productName, country, timestamp, productImage} = item;
+              const {id, lastName, city, productName, country, timestamp, productImage} = item;
               return (
                 <Box>
                   <ResourceItem
                     id={id}
-                    accessibilityLabel={`View details for ${firstName}'s order`}
-                    name={`${firstName} from ${city}, ${country}`}
+                    accessibilityLabel={`View details for ${lastName}'s order`}
+                    name={`${lastName} from ${city}, ${country}`}
                   >
-                    <Box
-                      as="div"
-                      style={{
-                        display: 'flex',
-                        justifyContent: 'space-between',
-                        alignItems: 'center'
-                      }}
-                    >
-                      <NotificationPopup
-                        firstName={firstName}
-                        city={city}
-                        country={country}
-                        productName={productName}
-                        productImage={productImage}
-                        timestamp={
-                          <Text variant="bodyXs" as="h3">
-                            {formatDateTime(timestamp)}
-                          </Text>
-                        }
-                      />
-                    </Box>
+                    <InlineStack align="space-between">
+                      <Box
+                        as="div"
+                        style={{
+                          display: 'flex',
+                          justifyContent: 'space-between',
+                          alignItems: 'center'
+                        }}
+                      >
+                        <NotificationPopup
+                          lastName={lastName}
+                          city={city}
+                          country={country}
+                          productName={productName}
+                          productImage={productImage}
+                          timestamp={
+                            <Text variant="bodyXs" as="h3">
+                              {formatRelativeTime(timestamp)}
+                            </Text>
+                          }
+                        />
+                      </Box>
+                      <Text alignment="end" variant="bodyXs" as="h3">
+                        {formatDateLong(timestamp)}
+                      </Text>
+                    </InlineStack>
                   </ResourceItem>
                 </Box>
               );

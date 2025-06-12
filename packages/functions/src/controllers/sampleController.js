@@ -40,3 +40,29 @@ export async function getShopifyGraphql(ctx) {
     ctx.body = {data: [], success: false};
   }
 }
+
+/**
+ * Get latest 30 orders from Shopify
+ * @param ctx
+ * @returns {Promise<void>}
+ */
+export async function getLatestOrders(ctx) {
+  try {
+    const shopData = getCurrentShopData(ctx);
+    console.log('Shop Data:', shopData);
+    
+    const shopify = await initShopify(shopData);
+    console.log('Shopify instance created');
+    
+    const ordersQuery = loadGraphQL('/orders.graphql');
+    console.log('GraphQL query loaded:', ordersQuery);
+    
+    const ordersGraphql = await shopify.graphql(ordersQuery);
+    console.log('GraphQL response:', ordersGraphql);
+
+    ctx.body = {data: ordersGraphql, success: true};
+  } catch (e) {
+    console.error('Error in getLatestOrders:', e);
+    ctx.body = {data: [], success: false, error: e.message};
+  }
+}

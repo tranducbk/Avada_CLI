@@ -9,6 +9,7 @@ import {getApiPrefix} from '@functions/const/app';
 export default function apiRouter(isEmbed = false) {
   const router = new Router({prefix: getApiPrefix(isEmbed)});
 
+
   router.get('/shops', shopController.getUserShops);
   router.get('/subscription', subscriptionController.getSubscription);
   router.get('/appNews', appNewsController.getList);
@@ -20,9 +21,9 @@ export default function apiRouter(isEmbed = false) {
 
   // Settings routes
   router.get('/settings', settingsController.getSettingsController);
-  router.post('/settings', settingsController.createSettingsController);
   router.put('/settings', settingsController.updateSettingsController);
 
+  // Notifications routes
   router.get('/notifications', notificationsController.getNotificationsController);
 
   return router;

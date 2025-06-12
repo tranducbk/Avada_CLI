@@ -2,7 +2,7 @@ import React from 'react';
 import './NoticationPopup.scss';
 
 const NotificationPopup = ({
-  firstName,
+  lastName,
   city,
   country,
   productName,
@@ -22,7 +22,7 @@ const NotificationPopup = ({
             ></div>
             <div className="Avada-SP__Content">
               <div className={'Avada-SP__Title'}>
-                {firstName} in {city}, {country}
+                {lastName} in {city}, {country}
               </div>
               <div className={'Avada-SP__Subtitle'}>purchased {productName}</div>
               <div className={'Avada-SP__Footer'}>

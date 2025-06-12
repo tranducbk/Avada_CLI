@@ -21,7 +21,7 @@ import DisplaySettings from '@assets/components/DisplaySettings/DisplaySettings'
 import TriggerSettings from '@assets/components/TriggerSettings/TriggerSettings';
 import useFetchApi from '../../hooks/api/useFetchApi';
 import useEditApi from '../../hooks/api/useEditApi';
-import formatDateTime from '@functions/helpers/datetime/formatDateTime';
+import formatRelativeTime from '@functions/helpers/datetime/formatRelativeTime';
 import "./Setting.scss";
 
 export default function Settings() {
@@ -69,7 +69,7 @@ export default function Settings() {
 
   if (loading || loadingNotifications) {
     return (
-      <SkeletonPage primaryAction>
+      <SkeletonPage fullWidth={true} primaryAction>
         <Layout>
           <Layout.Section variant="oneThird">
             <LegacyCard subdued>
@@ -126,16 +126,16 @@ export default function Settings() {
         </Box>
         <Grid>
           <Grid.Cell columnSpan={{xs: 6, sm: 4, md: 4, lg: 4, xl: 4}}>
-            {notifications.map((notification) => (
-              <NotificationPopup
-                firstName={notification.firstName}
-                city={notification.city}
-                country={notification.country}
-                productName={notification.productName}
-                productImage={notification.productImage}
-                timestamp={<Text variant="bodyXs" as="h3">{formatDateTime(notification.timestamp)}</Text>}
-              />
-            ))}
+              {notifications && notifications.length > 0 && (
+                <NotificationPopup
+                  firstName={notifications[0].lastName}
+                  city={notifications[0].city}
+                  country={notifications[0].country}
+                  productName={notifications[0].productName}
+                  productImage={notifications[0].productImage}
+                  timestamp={<Text variant="bodyXs" as="h3">{formatRelativeTime(notifications[0].timestamp)}</Text>}
+                />
+              )}
           </Grid.Cell>
           <Grid.Cell columnSpan={{xs: 6, sm: 8, md: 8, lg: 8, xl: 8}}>
             <LegacyCard>
